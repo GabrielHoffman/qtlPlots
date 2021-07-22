@@ -1,0 +1,32 @@
+Package: qtlPlots
+Maintainer: Gabriel Hoffman <gabriel.hoffman@mssm.edu>
+Authors@R:  person("Gabriel", "Hoffman", role=c("aut", "cre"), 
+                 email="gabriel.hoffman@mssm.edu")
+Date: 2021-07-22
+Version: 0.0.1
+License: GPL-3
+Title: Create QTL plots
+Description: Create QTL plots
+Depends: R(>= 4.0.0)
+Imports:
+    stats,
+    graphics,
+    grDevices,
+    RColorBrewer,
+    GenomicRanges,
+    grid,
+    data.table,
+    grDevices,
+    ggplot2,
+    scales
+Suggests:
+    knitr,
+    EnsDb.Hsapiens.v75,
+    EnsDb.Hsapiens.v86,
+    BiocGenerics
+VignetteBuilder: knitr
+URL: https://github.com/GabrielHoffman/qtlPlots
+BugReports: https://github.com/GabrielHoffman/qtlPlots/issues
+RoxygenNote: 7.1.1
+LazyData: true
+
