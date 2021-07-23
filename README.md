@@ -7,7 +7,8 @@ devtools::install_github("GabrielHoffman/qtlPlots")
 
 
 
-Example of caQTL
+### Example of caQTL plots
+You can also add any other plots to this for eQTL and GWAS
 
 ```r
 # test combined plotting
