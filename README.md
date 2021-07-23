@@ -29,11 +29,11 @@ df = data.frame(Chr         = 1,
                 p.value     = runif(100))
 
 # Convert to GRanges
-gr = with(df, 	GRanges(Chr, 
- 					IRanges(	start 		= Position, 
- 								width 		= 1, 
- 								Variant 	= Variant, 
- 								score 	  	= -log10(p.value)))
+gr = with(df,   GRanges(Chr, 
+                IRanges(start   = Position, 
+                        width   = 1, 
+                        Variant = Variant, 
+                        score   = -log10(p.value)))
  
 # where: genome interval to show
 wh = GRanges(1, IRanges(1, 100))			
