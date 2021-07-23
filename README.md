@@ -21,6 +21,7 @@ Here is a simple example for simulated data:
  
 ```r
 library(GenomicRanges)
+library(qtlPlots)
  
 # simple example of QTL results
 df = data.frame(Chr         = 1,
