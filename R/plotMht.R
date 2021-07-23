@@ -9,12 +9,13 @@
 #' @param grObj GRanges object with scores as the -log10 p-value
 #' @param wh genome interval to plot
 #' @param size font size
+#' @param recombRate show recombination rate
 #'
 #' @import ggplot2 GenomicRanges GenomeInfoDb
 #' @importFrom scales comma
 #' @importFrom stats approx
 #' @export
-plotMht = function( grObj, wh, size=8 ){
+plotMht = function( grObj, wh, size=8, recombRate = TRUE ){
 
 	# load recombination rate
 	dir <- system.file("data", package="qtlPlots")
@@ -29,34 +30,41 @@ plotMht = function( grObj, wh, size=8 ){
 
     # extact scores *within* the region wh
     gr_sub = grObj[grObj %within% wh]
+
+    if( is.null(gr_sub$inCandidateSet) ){
+    	gr_sub$inCandidateSet = FALSE
+    }
+
     df_sub = data.frame(Position=start(gr_sub), score=score(gr_sub), inCandidateSet=gr_sub$inCandidateSet)
 
-    # recombination rate
-	# expand window until a recombination measurement is found 
-	wh_query = wh
-	n = 0
-	while( n < 1 ){
-		# get intersection
-		idx = which(gr_recomb %within% wh)
+    if( recombRate ){
+	    # recombination rate
+		# expand window until a recombination measurement is found 
+		wh_query = wh
+		n = 0
+		while( n < 1 ){
+			# get intersection
+			idx = which(gr_recomb %within% wh)
 
-		# count number
-		n = length(idx)
+			# count number
+			n = length(idx)
 
-		# expand interval
-		wh_query = flank(wh_query, width=width(wh_query)*2, both=TRUE)
+			# expand interval
+			wh_query = flank(wh_query, width=width(wh_query)*2, both=TRUE)
+		}
+
+		# then expand one more step in each direction to avoid edge effects
+		# but avoid steping over the last element
+		idx_augment = c(min(idx)-1, idx, max(idx)+1)
+		idx_augment = pmin(pmax(1, idx_augment), length(gr_recomb))
+		gr_recomb_sub = gr_recomb[idx_augment] 
+
+		# Add recombination rate to first plot
+		# linear interpolation evaluate at points in resComposite
+		app = approx( start(gr_recomb_sub), gr_recomb_sub$recomb_rate, df_sub$Position )
+		df_sub$rate = pmin(app$y, 100) # cap local rate at 100
+		# df_window$log10.p.value = pmin(300,df_window$log10.p.value)
 	}
-
-	# then expand one more step in each direction to avoid edge effects
-	# but avoid steping over the last element
-	idx_augment = c(min(idx)-1, idx, max(idx)+1)
-	idx_augment = pmin(pmax(1, idx_augment), length(gr_recomb))
-	gr_recomb_sub = gr_recomb[idx_augment] 
-
-	# Add recombination rate to first plot
-	# linear interpolation evaluate at points in resComposite
-	app = approx( start(gr_recomb_sub), gr_recomb_sub$recomb_rate, df_sub$Position )
-	df_sub$rate = pmin(app$y, 100) # cap local rate at 100
-	# df_window$log10.p.value = pmin(300,df_window$log10.p.value)
 
 	ymax = max(df_sub$score)
 	ymax.rate = ymax
@@ -70,7 +78,20 @@ plotMht = function( grObj, wh, size=8 ){
 	# 	fig_eqtl = ggplot(df_window, aes(Position, log10.p.value, color=cat)) + scale_color_manual(values = c("grey", "black", "red"))
 	# }
 
-	fig = fig + geom_point(size=.4) + ylab(bquote(-log[10]~P)) + scale_x_continuous(expand=c(0,0), label=comma, limits=c(start(wh), end(wh))) + scale_y_continuous(expand=c(0,0), limits=c(0, ymax*1.05), sec.axis = sec_axis(~./(ymax.rate/100), name = "Recombination\nrate [cM/Mb]")) + geom_line(aes(y=rate*(ymax.rate/100)), color="dodgerblue", size=.5) + theme(legend.position="none")
+	fig = fig + geom_point(size=.4) + ylab(bquote(-log[10]~P)) + scale_x_continuous(expand=c(0,0), label=comma, limits=c(start(wh), end(wh))) + 
 
-	fig
+	if( recombRate ){
+		fig = fig + scale_y_continuous(expand=c(0,0), limits=c(0, ymax*1.05), sec.axis = sec_axis(~./(ymax.rate/100), name = "Recombination\nrate [cM/Mb]")) + geom_line(aes(y=rate*(ymax.rate/100)), color="dodgerblue", size=.5)
+	}
+
+	fig + theme(legend.position="none")
 }
+
+
+
+
+
+
+
+
+

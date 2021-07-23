@@ -4,7 +4,7 @@
 \alias{plotMht}
 \title{Zoom in manhattan plot}
 \usage{
-plotMht(grObj, wh, size = 8)
+plotMht(grObj, wh, size = 8, recombRate = TRUE)
 }
 \arguments{
 \item{grObj}{GRanges object with scores as the -log10 p-value}
@@ -12,6 +12,8 @@ plotMht(grObj, wh, size = 8)
 \item{wh}{genome interval to plot}
 
 \item{size}{font size}
+
+\item{recombRate}{show recombination rate}
 }
 \description{
 Zoom in manhattan plot

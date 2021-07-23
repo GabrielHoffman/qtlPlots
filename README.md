@@ -5,9 +5,45 @@
 devtools::install_github("GabrielHoffman/qtlPlots")
 ```
 
+### Description
+Plotting functions take in a `GRanges` object where `scores` defines the value to be plotted on the y-axis.
+ 
+ * `plotMht()` Manhattan plot for local region
+ * `plotPosterior()` Posterior probabilities in local region
+
+ In addition, there are 2 other functions
+ 
+ * `plotEnsGenes()` Plot ENSBMLE genes
+ * `plotBed()` Plot genome intervals
 
 
-### Example of caQTL plots
+Here is a simple example for simulated data:
+ 
+```r
+library(GenomicRanges)
+ 
+# simple example of QTL results
+df = data.frame(	Chr 		= 1,
+ 					Position 	= 1:100, 
+ 					Variant 	= paste0('SNP', 1:100),
+ 					p.value 	= runif(100))
+
+# Convert to GRanges
+gr = with(df, 	GRanges(Chr, 
+ 					IRanges(	start 		= Position, 
+ 								width 		= 1, 
+ 								Variant 	= Variant, 
+ 								score 	  	= -log10(p.value)))
+ 
+# where: genome interval to show
+wh = GRanges(1, IRanges(1, 100))			
+ 						
+# example plot
+plotMht(gr, wh, recombRate=FALSE) 
+```
+ 
+# Example on real caQTL data 
+
 You can also add any other plots to this for eQTL and GWAS
 
 ```r
