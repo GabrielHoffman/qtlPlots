@@ -20,8 +20,10 @@ Plotting functions take in a `GRanges` object where `scores` defines the value t
 Here is a simple example for simulated data:
  
 ```r
+suppressPackageStartupMessages({
 library(GenomicRanges)
 library(qtlPlots)
+})
  
 # simple example of QTL results
 df = data.frame(Chr         = 1,
@@ -34,7 +36,7 @@ gr = with(df,   GRanges(Chr,
                 IRanges(start   = Position, 
                         width   = 1, 
                         Variant = Variant, 
-                        score   = -log10(p.value)))
+                        score   = -log10(p.value))))
  
 # where: genome interval to show
 wh = GRanges(1, IRanges(1, 100))			
