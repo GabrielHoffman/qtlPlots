@@ -78,7 +78,7 @@ plotMht = function( grObj, wh, size=8, recombRate = TRUE ){
 	# 	fig_eqtl = ggplot(df_window, aes(Position, log10.p.value, color=cat)) + scale_color_manual(values = c("grey", "black", "red"))
 	# }
 
-	fig = fig + geom_point(size=.4) + ylab(bquote(-log[10]~P)) + scale_x_continuous(expand=c(0,0), label=comma, limits=c(start(wh), end(wh))) 
+	fig = fig + geom_point(size=.4) + ylab(bquote(-log[10]~P)) + scale_x_continuous(expand=c(0,0), labels=comma, limits=c(start(wh), end(wh))) 
 
 	if( recombRate ){
 		fig = fig + scale_y_continuous(expand=c(0,0), limits=c(0, ymax*1.05), sec.axis = sec_axis(~./(ymax.rate/100), name = "Recombination\nrate [cM/Mb]")) + geom_line(aes(y=rate*(ymax.rate/100)), color="dodgerblue", size=.5)

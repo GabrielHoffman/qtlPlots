@@ -11,9 +11,10 @@ Depends: R(>= 4.0.0)
 Imports:
     stats,
     graphics,
-    grDevices,
     RColorBrewer,
     GenomicRanges,
+    GenomeInfoDb,
+    GenomicFeatures,
     grid,
     data.table,
     grDevices,

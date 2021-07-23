@@ -19,6 +19,7 @@ get_exon_coords = function (ensdb, query, biotypes = c("protein_coding")){
 }
 
 
+
 #' Plot ENSEMBL genes
 #' 
 #' Plot ENSEMBL genes in region
@@ -66,7 +67,8 @@ plotEnsGenes = function(ensdb, wh, splice_variants = FALSE, non_coding = FALSE, 
 	if( non_coding ){
 		gr_exons = get_exon_coords( ensdb, gr, NA )
 	}else{
-		gr_exons = decorate::get_exon_coords( ensdb, gr, 'protein_coding' )
+		gr_exons = get_exon_coords( ensdb, gr, 'protein_coding' )
+        # gr_exons = decorate::get_exon_coords( ensdb, gr, 'protein_coding' )
 
 		# get locus for ensGene (even if it is non-coding)
 		if( !is.null(ensGene) ){
@@ -169,9 +171,9 @@ plotEnsGenes = function(ensdb, wh, splice_variants = FALSE, non_coding = FALSE, 
 		ylim = c(min(t$plot_line), max(t$plot_line))
 		d = ylim[2] - ylim[1]
 
-		fig = ggplot(t, aes(x=txMin, xend=txMax, y=plot_line, yend=plot_line, color = ifelse(biotype=='protein_coding', '1', '2'), label=paste0('  ',symbol, '  '), hjust=ifelse(strand=='+', 1, 0))) + geom_segment( arrow = arrow(length = unit(arrow.size, "npc"), end="last",type = "open")) + ylim(ylim[1] - 0.3*d, ylim[2] + 0.1*d) + geom_text(size=2.2) + scale_x_continuous(label=comma, expand=c(0,0), limits=c(minRange, maxRange)) + scale_color_manual(values=c("navy", "grey40")) 
+		fig = ggplot(t, aes(x=txMin, xend=txMax, y=plot_line, yend=plot_line, color = ifelse(biotype=='protein_coding', '1', '2'), label=paste0('  ',symbol, '  '), hjust=ifelse(strand=='+', 1, 0))) + geom_segment( arrow = arrow(length = unit(arrow.size, "npc"), end="last",type = "open")) + ylim(ylim[1] - 0.3*d, ylim[2] + 0.1*d) + geom_text(size=2.2) + scale_x_continuous(labels=comma, expand=c(0,0), limits=c(minRange, maxRange)) + scale_color_manual(values=c("navy", "grey40")) 
 	}else{
-		fig = ggplot() + scale_x_continuous(label=comma, expand=c(0,0), limits=c(minRange, maxRange))
+		fig = ggplot() + scale_x_continuous(labels=comma, expand=c(0,0), limits=c(minRange, maxRange))
 	}
 
     fig + theme_bw() + theme(legend.position = "none", axis.title=element_blank(), axis.ticks.y=element_blank(), axis.line.y=element_blank(), panel.grid=element_blank(), axis.text.y=element_blank(),panel.background = element_blank(), strip.background = element_blank(), rect = element_rect(fill="white", linetype=0))

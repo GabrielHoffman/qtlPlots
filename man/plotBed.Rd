@@ -10,8 +10,6 @@ plotBed(grObj, wh)
 \item{grObj}{GRanges object with scores as the posterior inclusion probability}
 
 \item{wh}{genome interval to plot}
-
-\item{size}{font size}
 }
 \description{
 Plot BED intervals
