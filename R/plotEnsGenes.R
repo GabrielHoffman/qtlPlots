@@ -3,9 +3,8 @@
 # October 2, 2020
 # Adapt decorate::plotEnsGenes to plot using ggplot2 instead of grid
 
-# library(scales)
-
 # adapted from decorate::get_exon_coords(), but return gene_id here
+#' @importFrom GenomicFeatures exonsByOverlaps
 get_exon_coords = function (ensdb, query, biotypes = c("protein_coding")){
     if (!is(ensdb, "EnsDb")) {
         stop("ensdb must be an ENSEMBL databsed of type EnsDb")
@@ -32,6 +31,7 @@ get_exon_coords = function (ensdb, query, biotypes = c("protein_coding")){
 #' @param non_coding if TRUE, also show non-coding genes
 #' @param arrow.size arrow size for genes
 #' @param ensGene show specific non-coding locus
+#' @param size font size
 #'
 #' @return ggplot2 of genome region
 #' 
@@ -55,7 +55,7 @@ get_exon_coords = function (ensdb, query, biotypes = c("protein_coding")){
 # @import grid
 #' @importFrom data.table data.table
 # @importFrom grDevices pdf dev.off
-plotEnsGenes = function(ensdb, wh, splice_variants = FALSE, non_coding = FALSE, arrow.size=0.05, ensGene = NULL){
+plotEnsGenes = function(ensdb, wh, splice_variants = FALSE, non_coding = FALSE, arrow.size=0.05, ensGene = NULL, size=8){
 
     minRange = start(wh)
     maxRange = end(wh)
@@ -174,7 +174,7 @@ plotEnsGenes = function(ensdb, wh, splice_variants = FALSE, non_coding = FALSE, 
 		fig = ggplot() + scale_x_continuous(label=comma, expand=c(0,0), limits=c(minRange, maxRange))
 	}
 
-	fig + theme_bw() + theme(legend.position = "none", axis.title=element_blank(), axis.ticks.y=element_blank(), axis.line.y=element_blank(), panel.grid=element_blank(), axis.text.y=element_blank(),panel.background = element_blank(), strip.background = element_blank(), rect = element_rect(fill="white", linetype=0))
+    fig + theme_bw() + theme(legend.position = "none", axis.title=element_blank(), axis.ticks.y=element_blank(), axis.line.y=element_blank(), panel.grid=element_blank(), axis.text.y=element_blank(),panel.background = element_blank(), strip.background = element_blank(), rect = element_rect(fill="white", linetype=0))
 }
 
 # chr20 47223127-48223127
