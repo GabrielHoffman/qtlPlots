@@ -81,7 +81,8 @@ gr_finemap = gr_finemap[gr_finemap$feature == targetPeak]
 
 # identify variants in the candidate set
 gr_caQTL_sub$inCandidateSet = FALSE
-gr_caQTL_sub$inCandidateSet[gr_caQTL_sub$Variant %in% gr_finemap$Variant] = TRUE
+idx = gr_caQTL_sub$Variant %in% gr_finemap$Variant
+gr_caQTL_sub$inCandidateSet[idx] = TRUE
 
 # recomb rate is hg19
 fig_mht = plotMht( gr_caQTL_sub, wh )
