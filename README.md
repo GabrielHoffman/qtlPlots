@@ -6,12 +6,12 @@ devtools::install_github("GabrielHoffman/qtlPlots")
 ```
 
 ### Description
-Plotting functions take in a `GRanges` object where `scores` defines the value to be plotted on the y-axis.
+Plotting functions take in a `GRanges` object where `scores` defines the value to be plotted on the y-axis:
  
  * `plotMht()` Manhattan plot for local region
  * `plotPosterior()` Posterior probabilities in local region
 
- In addition, there are 2 other functions
+ In addition, there are 2 other functions:
  
  * `plotEnsGenes()` Plot ENSBMLE genes
  * `plotBed()` Plot genome intervals
@@ -23,10 +23,10 @@ Here is a simple example for simulated data:
 library(GenomicRanges)
  
 # simple example of QTL results
-df = data.frame(	Chr 		= 1,
- 					Position 	= 1:100, 
- 					Variant 	= paste0('SNP', 1:100),
- 					p.value 	= runif(100))
+df = data.frame(Chr         = 1,
+                Position    = 1:100, 
+                Variant     = paste0('SNP', 1:100),
+                p.value     = runif(100))
 
 # Convert to GRanges
 gr = with(df, 	GRanges(Chr, 
