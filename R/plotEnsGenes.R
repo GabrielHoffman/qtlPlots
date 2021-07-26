@@ -5,6 +5,7 @@
 
 # adapted from decorate::get_exon_coords(), but return gene_id here
 #' @importFrom GenomicFeatures exonsByOverlaps
+#' @importFrom methods is
 get_exon_coords = function (ensdb, query, biotypes = c("protein_coding")){
     if (!is(ensdb, "EnsDb")) {
         stop("ensdb must be an ENSEMBL databsed of type EnsDb")
