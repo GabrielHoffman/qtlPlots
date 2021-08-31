@@ -17,10 +17,14 @@
 #' @export
 plotMht = function( grObj, wh, size=8, recombRate = TRUE ){
 
+	seqlevelsStyle(grObj) = "UCSC"
+
 	# load recombination rate
 	dir <- system.file("data", package="qtlPlots")
 	# dir = "/Users/gabrielhoffman/workspace/repos/qtlPlots/data/"
     gr_recomb <- readRDS(file.path(dir,"gr_recomb_hg19.RDS"))
+
+	seqlevelsStyle(gr_recomb) = "UCSC"
 
     # keep only entries on the same chromosome as grObj 
     # gr_recomb = gr_recomb[seqnames(gr_recomb) %in% seqnames(wh)] 
