@@ -17,6 +17,11 @@
 #' @export
 plotMht = function( grObj, wh, size=8, recombRate = TRUE ){
 
+	if( length(grObj) == 0){
+		fig = ggplot() + theme_void() + scale_x_continuous(expand=c(0,0), labels=comma, limits=c(start(wh), end(wh)))
+		return(fig)
+	}
+
 	seqlevelsStyle(grObj) = "UCSC"
 
 	# load recombination rate
