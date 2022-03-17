@@ -13,7 +13,7 @@ Plotting functions take in a `GRanges` object where `scores` defines the value t
 
  In addition, there are 2 other functions:
  
- * `plotEnsGenes()` Plot ENSBMLE genes
+ * `plotEnsGenes()` Plot ENSEMBL genes
  * `plotBed()` Plot genome intervals
 
 
