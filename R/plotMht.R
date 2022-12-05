@@ -79,7 +79,7 @@ plotMht = function( grObj, wh, size=8, ptSize = 1, recombRate = TRUE ){
 	ymax.rate = ymax
 
 	# if( (ord == 1) || ! showConditional ){
-		fig = ggplot(df_sub, aes(Position, score, color=inCandidateSet)) + scale_color_manual(values = c("black", "red")) + theme_classic(size)
+		fig = ggplot(df_sub, aes(Position, score, color=inCandidateSet)) + scale_color_manual(values = c("FALSE"="black", "TRUE"="red")) + theme_classic(size)
 	# }else{		
 	# 	df_window[,cat := paste(inCandSet, eQTL_order < ord)]
 	# 	df_window$cat = factor(df_window$cat, c("no TRUE", "no FALSE", "yes FALSE"))
