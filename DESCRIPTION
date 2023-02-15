@@ -2,8 +2,8 @@ Package: qtlPlots
 Maintainer: Gabriel Hoffman <gabriel.hoffman@mssm.edu>
 Authors@R:  person("Gabriel", "Hoffman", role=c("aut", "cre"), 
                  email="gabriel.hoffman@mssm.edu")
-Date: 2022-12-5
-Version: 0.0.5
+Date: 2023-02-15
+Version: 0.0.6
 License: GPL-3
 Title: Create QTL plots
 Description: Create QTL plots
