@@ -56,6 +56,7 @@ get_exon_coords = function (ensdb, query, biotypes = c("protein_coding")){
 #' @importFrom scales comma
 # @import grid
 #' @importFrom data.table data.table
+#' @importFrom IRanges IRanges
 # @importFrom grDevices pdf dev.off
 plotEnsGenes = function(ensdb, wh, splice_variants = FALSE, non_coding = FALSE, arrow.size=0.05, ensGene = NULL, size=8){
 
@@ -64,6 +65,9 @@ plotEnsGenes = function(ensdb, wh, splice_variants = FALSE, non_coding = FALSE, 
     chromosome = seqnames(wh)
 
 	gr = GRanges(gsub( "^chr", "", chromosome), IRanges(minRange, maxRange))
+
+    # Pass R CMD check
+    plot_line = txMin = txMax =  NULL
 
 	if( non_coding ){
 		gr_exons = get_exon_coords( ensdb, gr, NA )
@@ -172,7 +176,7 @@ plotEnsGenes = function(ensdb, wh, splice_variants = FALSE, non_coding = FALSE, 
 		ylim = c(min(t$plot_line), max(t$plot_line))
 		d = ylim[2] - ylim[1]
 
-		fig = ggplot(t, aes(x=txMin, xend=txMax, y=plot_line, yend=plot_line, color = ifelse(biotype=='protein_coding', '1', '2'), label=paste0('  ',symbol, '  '), hjust=ifelse(strand=='+', 1, 0))) + geom_segment( arrow = arrow(length = unit(arrow.size, "npc"), end="last",type = "open")) + ylim(ylim[1] - 0.3*d, ylim[2] + 0.1*d) + geom_text(size=2.2) + scale_x_continuous(labels=comma, expand=c(0,0), limits=c(minRange, maxRange)) + scale_color_manual(values=c("navy", "grey40")) 
+		fig = ggplot(t, aes(x=txMin, xend=txMax, y=plot_line, yend=plot_line, color = ifelse(biotype=='protein_coding', '1', '2'), label=paste0('  ',symbol, '  '), hjust=ifelse(strand=='+', 1, 0))) + geom_segment( arrow = arrow(length = unit(arrow.size, "npc"), ends="last",type = "open")) + ylim(ylim[1] - 0.3*d, ylim[2] + 0.1*d) + geom_text(size=2.2) + scale_x_continuous(labels=comma, expand=c(0,0), limits=c(minRange, maxRange)) + scale_color_manual(values=c("navy", "grey40")) 
 	}else{
 		fig = ggplot() + scale_x_continuous(labels=comma, expand=c(0,0), limits=c(minRange, maxRange))
 	}

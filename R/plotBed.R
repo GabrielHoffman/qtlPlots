@@ -12,6 +12,7 @@
 #'
 #' @import ggplot2 GenomicRanges 
 #' @importFrom scales comma
+#' @importFrom IRanges `%within%`
 #' @export
 plotBed = function( grObj, wh ){
 
@@ -19,6 +20,9 @@ plotBed = function( grObj, wh ){
 
     # convert to data.frame
     df_loc = as.data.frame(gr_sub)
+
+    # Pass R CMd check 
+    status = NULL
 
     if( ! ("status" %in% colnames(df_loc)) ){
         df_loc$status = 0

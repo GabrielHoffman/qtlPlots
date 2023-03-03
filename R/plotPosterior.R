@@ -14,6 +14,7 @@
 #'
 #' @import ggplot2 GenomicRanges 
 #' @importFrom scales comma
+#' @importFrom IRanges `%within%`
 #' @export
 plotPosterior = function( grObj, wh, size=8, ymax=1 ){
 
@@ -23,5 +24,5 @@ plotPosterior = function( grObj, wh, size=8, ymax=1 ){
 
 	fig = ggplot(df_sub, aes(Position, score)) + theme_classic(size)
 
-	fig + geom_point(size=.4, color="red") + ylab("Posterior") + scale_y_continuous(expand=c(0,0.01), limits=c(0, ymax)) + scale_x_continuous(expand=c(0,0), limits=c(start(wh), end(wh)), label=comma) + theme(legend.position="none") 
+	fig + geom_point(size=.4, color="red") + ylab("Posterior") + scale_y_continuous(expand=c(0,0.01), limits=c(0, ymax)) + scale_x_continuous(expand=c(0,0), limits=c(start(wh), end(wh)), labels=comma) + theme(legend.position="none") 
 }	

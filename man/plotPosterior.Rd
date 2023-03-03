@@ -4,7 +4,7 @@
 \alias{plotPosterior}
 \title{Zoom in manhattan plot of posteriors}
 \usage{
-plotPosterior(grObj, wh, size = 8)
+plotPosterior(grObj, wh, size = 8, ymax = 1)
 }
 \arguments{
 \item{grObj}{GRanges object with scores as the posterior inclusion probability}
@@ -12,6 +12,8 @@ plotPosterior(grObj, wh, size = 8)
 \item{wh}{genome interval to plot}
 
 \item{size}{font size}
+
+\item{ymax}{max value on y axis}
 }
 \description{
 Zoom in manhattan plot of posteriors

@@ -9,11 +9,13 @@
 #' @param grObj GRanges object with scores as the -log10 p-value
 #' @param wh genome interval to plot
 #' @param size font size
+#' @param ptSize size for points
 #' @param recombRate show recombination rate
 #'
 #' @import ggplot2 GenomicRanges GenomeInfoDb
 #' @importFrom scales comma
 #' @importFrom stats approx
+#' @importFrom IRanges `%within%`
 #' @export
 plotMht = function( grObj, wh, size=8, ptSize = 1, recombRate = TRUE ){
 
@@ -21,6 +23,10 @@ plotMht = function( grObj, wh, size=8, ptSize = 1, recombRate = TRUE ){
 		fig = ggplot() + theme_void() + scale_x_continuous(expand=c(0,0), labels=comma, limits=c(start(wh), end(wh)))
 		return(fig)
 	}
+
+
+    # Pass R CMD check
+    inCandidateSet = rate = NULL
 
 	# load recombination rate
 	dir <- system.file("data", package="qtlPlots")
